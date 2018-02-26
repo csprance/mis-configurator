@@ -1,0 +1,30 @@
+{
+  "parser": "babel-eslint",
+  "extends": [
+    "airbnb-base",
+    "prettier",
+    "plugin:flowtype/recommended"
+  ],
+  "plugins": [
+    "prettier",
+    "flowtype",
+    "flowtype-errors"
+  ],
+  "env": {
+    "jest": true
+  },
+  "rules": {
+    "arrow-parens": ["off"],
+    "consistent-return": "off",
+    "comma-dangle": "off",
+    "flowtype-errors/show-errors": "error",
+    "flowtype/no-weak-types": "off",
+    "generator-star-spacing": "off",
+    "indent": "off",
+    "max-len": ["error", { "comments": 121, "code": 121 }],
+    "no-console": "off",
+    "no-use-before-define": "off",
+    "no-multi-assign": "off",
+    "no-tabs": 0
+  }
+}
