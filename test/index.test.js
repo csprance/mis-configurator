@@ -1,8 +1,25 @@
-import sayHello from '../src';
+/* global describe it */
+import {
+	createHostingCFGStringFromObject,
+	createObjectFromHostingCFGString
+} from '../src';
 
-describe('sayHello', () => {
-	it('returns hello', () => {
-		expect(sayHello()).toBe('Hello, Haz!');
-		expect(sayHello('foo')).toBe('Hello, foo!');
+import {
+	mockHostingCFgString,
+	mockHostingCFGObj,
+	mockHostingCFgStringFormatted
+} from './mock-hosting';
+
+describe('transform', () => {
+	it('transforms a js object', () => {
+		expect(createHostingCFGStringFromObject(mockHostingCFGObj)).toBe(
+			mockHostingCFgStringFormatted
+		);
+	});
+
+	it('transforms a cfg string', () => {
+		expect(createObjectFromHostingCFGString(mockHostingCFgString)).toBe(
+			mockHostingCFGObj
+		);
 	});
 });

@@ -1,10 +1,8 @@
 # mis-configurator
 
-[![Generated with nod](https://img.shields.io/badge/generator-nod-2196F3.svg?style=flat-square)](https://github.com/diegohaz/nod)
 [![NPM version](https://img.shields.io/npm/v/mis-configurator.svg?style=flat-square)](https://npmjs.org/package/mis-configurator)
-[![Build Status](https://img.shields.io/travis/csprance/mis-configurator/master.svg?style=flat-square)](https://travis-ci.org/csprance/mis-configurator) [![Coverage Status](https://img.shields.io/codecov/c/github/csprance/mis-configurator/master.svg?style=flat-square)](https://codecov.io/gh/csprance/mis-configurator/branch/master)
 
- A node module to create a hosting.cfg file from some json
+> A node module to decode/encode a Miscreated hosting.cfg file.
 
 ## Install
 
@@ -13,9 +11,13 @@
 ## Usage
 
 ```js
-import myModule from 'mis-configurator'
+import transformJSON from 'mis-configurator'
 
-myModule()
+const data : any = {
+    someCvar: 'someCvarValue'
+};
+
+const hostingCFGString : string = createHostingCFGFrom(data)
 ```
 
 ## API
@@ -24,17 +26,17 @@ myModule()
 
 #### Table of Contents
 
--   [sayHello](#sayhello)
+-   [transform](#transform)
 
-### sayHello
+### transform
 
-This function says hello.
+This takes a javascript object and transforms it to a hosting.cfg ready string.
 
 **Parameters**
 
--   `name` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Some name to say hello for.
+-   `data` **{http_password: [string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)}** The javascript object to transform.
 
-Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The hello.
+Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** a hosting.cfg string.
 
 ## License
 

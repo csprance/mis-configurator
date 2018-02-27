@@ -1,7 +1,7 @@
 {
   "name": "mis-configurator",
   "version": "0.1.0",
-  "description": " A node module to create a hosting.cfg file from some json",
+  "description": " A node module to create a Miscreated hosting.cfg file from some json",
   "license": "MIT",
   "repository": "csprance/mis-configurator",
   "main": "index.js",
@@ -45,7 +45,9 @@
   "keywords": [
     "mis-configurator"
   ],
-  "dependencies": {},
+  "dependencies": {
+
+  },
   "devDependencies": {
     "babel-cli": "^6.18.0",
     "babel-eslint": "^8.0.0",
@@ -53,6 +55,7 @@
     "babel-preset-env": "^1.1.8",
     "babel-preset-flow": "^6.23.0",
     "babel-preset-stage-2": "^6.18.0",
+    "babel-register": "^6.26.0",
     "documentation": "^5.3.2",
     "eslint": "^4.17.0",
     "eslint-config-airbnb-base": "^12.0.0",

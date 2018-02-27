@@ -1,10 +1,9 @@
 // @flow
+import MisConfigurator from './MisConfigurator';
 
-/**
- * This function says hello.
- * @param name Some name to say hello for.
- * @returns The hello.
- */
-const sayHello = (name: string = 'Haz'): string => `Hello, ${name}!`;
+export {
+	createHostingCFGStringFromObject,
+	createObjectFromHostingCFGString
+} from './MisConfigurator';
 
-export default sayHello;
+export default MisConfigurator;
