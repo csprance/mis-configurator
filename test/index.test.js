@@ -1,25 +1,25 @@
 /* global describe it */
 import {
-	createHostingCFGStringFromObject,
-	createObjectFromHostingCFGString
+	createHostingCFGStringFromObject
+	// createObjectFromHostingCFGString
 } from '../src';
 
 import {
-	mockHostingCFgString,
+	// mockHostingCFgString,
 	mockHostingCFGObj,
 	mockHostingCFgStringFormatted
 } from './mock-hosting';
 
-describe('transform', () => {
-	it('transforms a js object', () => {
+describe('Decode Encode', () => {
+	it('Create hosting CFG string from object', () => {
 		expect(createHostingCFGStringFromObject(mockHostingCFGObj)).toBe(
 			mockHostingCFgStringFormatted
 		);
 	});
 
-	it('transforms a cfg string', () => {
-		expect(createObjectFromHostingCFGString(mockHostingCFgString)).toBe(
-			mockHostingCFGObj
-		);
-	});
+	// it('Create object from hosting CFG string', () => {
+	// 	expect(createObjectFromHostingCFGString(mockHostingCFgString)).toBe(
+	// 		mockHostingCFGObj
+	// 	);
+	// });
 });

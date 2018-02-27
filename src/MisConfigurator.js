@@ -1,3 +1,4 @@
+/* eslint-disable no-continue,no-plusplus */
 // @flow
 /** MisConfigurator
  * project: mis-configurator
@@ -69,6 +70,7 @@ export default class MisConfigurator {
 			);
 			const newSection = line.match(sectionRegExp);
 			if (newSection !== null) {
+				// eslint-disable-next-line flowtype-errors/show-errors,prefer-destructuring
 				currentSection = newSection[1];
 				if (typeof result[currentSection] === 'undefined') {
 					result[currentSection] = {};
