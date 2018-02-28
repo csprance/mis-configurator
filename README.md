@@ -30,6 +30,7 @@ const hostingCFGObj = createObjectFromHostingCFGString(mockHostingCFgString);
 -   [MisConfigurator](#misconfigurator)
     -   [decode](#decode)
     -   [encode](#encode)
+    -   [getDuplicatedKeys](#getduplicatedkeys)
     -   [detectLineEnding](#detectlineending)
     -   [stringBeginsWithOnOfTheseStrings](#stringbeginswithonofthesestrings)
 -   [createHostingCFGStringFromObject](#createhostingcfgstringfromobject)
@@ -74,6 +75,18 @@ no nesting section supported!
 -   `object` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** {object}
 
 Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+
+#### getDuplicatedKeys
+
+Gets any keys that are duplicates
+
+-   @param keyValuePairs \[['key1'], 'value1'], ['key2', 'value2'], ['key1', 'value3']]
+
+**Parameters**
+
+-   `keyValuePairs` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>>** 
+
+Returns **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>** Array<string> ['key1']
 
 #### detectLineEnding
 
