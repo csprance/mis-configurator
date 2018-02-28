@@ -1,4 +1,4 @@
-/* eslint-disable no-continue,no-plusplus */
+/* eslint-disable no-continue,no-plusplus,prefer-destructuring,no-param-reassign */
 // @flow
 /** MisConfigurator
  * project: mis-configurator
@@ -44,61 +44,63 @@ export default class MisConfigurator {
 	 * @return object
 	 */
 	decode(data: string): Object {
-		const result = {};
-		let currentSection;
 		const lines = data.split(this.options.lineEnding);
-
-		for (let i = 0; i < lines.length; i++) {
-			let line = lines[i];
-			if (this.options.trimLines === true) {
-				line = line.trim();
-			}
-			if (
-				line.length === 0 ||
-				MisConfigurator.stringBeginsWithOnOfTheseStrings(
+		const linesNonEmpty = lines.filter(line => line.length > 0);
+		const linesCommentsStripped = linesNonEmpty.filter(
+			line =>
+				!MisConfigurator.stringBeginsWithOnOfTheseStrings(
 					line,
 					this.options.commentIdentifiers
 				)
-			) {
-				continue;
-			}
+		);
+		const trimmedLines = linesCommentsStripped.filter(
+			line => (this.options.trimLines ? line.trim() : line)
+		);
+		const keyValuePairs = trimmedLines.map(line =>
+			line.split(this.options.assignIdentifier)
+		);
+		const duplicateKeys = MisConfigurator.getDuplicatedKeys(keyValuePairs);
+		const keyValuePairsDupesRemoved = keyValuePairs.filter(
+			item => !duplicateKeys.includes(item[0])
+		);
+		const keyValuePairsDupesOnly = keyValuePairs.filter(item =>
+			duplicateKeys.includes(item[0])
+		);
+		const deDuplicatedKeyValues = Object.entries(
+			keyValuePairsDupesOnly.reduce((acc, inVal) => {
+				const key = inVal[0];
+				const val = inVal[1];
+				acc[key] = [].concat(acc[key], val);
+				return acc;
+			}, Object.assign({}, ...duplicateKeys.map(key => ({ [key]: [] }))))
+		);
+		const decodedResults = []
+			.concat(deDuplicatedKeyValues, keyValuePairsDupesRemoved)
+			.reduce((acc, val) => {
+				acc[val[0]] = val[1];
+				return acc;
+			}, {});
 
-			const sectionRegExp = new RegExp(
-				`^\\${this.options.sectionOpenIdentifier}(.*?)\\${
-					this.options.sectionCloseIdentifier
-				}$`
-			);
-			const newSection = line.match(sectionRegExp);
-			if (newSection !== null) {
-				// eslint-disable-next-line flowtype-errors/show-errors,prefer-destructuring
-				currentSection = newSection[1];
-				if (typeof result[currentSection] === 'undefined') {
-					result[currentSection] = {};
-				}
-				continue;
-			}
+		// TODO: Maybe some verification on the object here?
+		return decodedResults;
+	}
 
-			const assignPosition = line.indexOf(this.options.assignIdentifier);
-			let key;
-			let value;
-			if (assignPosition === -1) {
-				key = line;
-				value = this.options.defaultValue;
-			} else {
-				key = line.substr(0, assignPosition);
-				value = line.substr(
-					assignPosition + this.options.assignIdentifier.length
-				);
-			}
+	/**
+	 * Gets any keys that are duplicates
+	 * * @param keyValuePairs [['key1'], 'value1'], ['key2', 'value2'], ['key1', 'value3']]
+	 * @return Array<string> ['key1']
+	 */
+	static getDuplicatedKeys(keyValuePairs: Array<Array<string>>): Array<string> {
+		const getKeys = (acc, val) => acc.concat(val[0]);
+		const unique = keyValuePairs
+			.reduce(getKeys)
+			.map(name => ({ count: 1, name }))
+			.reduce((a, b) => {
+				a[b.name] = (a[b.name] || 0) + b.count;
+				return a;
+			}, {});
 
-			if (typeof currentSection === 'undefined') {
-				result[key] = value;
-			} else {
-				result[currentSection][key] = value;
-			}
-		}
-
-		return result;
+		return Object.keys(unique).filter(a => unique[a] > 1);
 	}
 
 	/**

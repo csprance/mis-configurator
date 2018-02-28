@@ -1,9 +1,4 @@
 // @flow
-/** SaneDefaults
- * project: mis-configurator
- * author: Chris Sprance - csprance
- * description:
- */
 
 export const saneDefaults: string = `# Miscreated hosting.cfg file
 
